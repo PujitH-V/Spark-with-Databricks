@@ -12,8 +12,8 @@ configs = {"fs.azure.account.auth.type": "OAuth",
 # COMMAND ----------
 
 dbutils.fs.mount(
-  source = f"abfss://jnj-demo@phvdevusastorage.dfs.core.windows.net/",
-  mount_point = f"/mnt/jnj/",
+  source = f"abfss://warehouse@phvdevusastorage.dfs.core.windows.net/",
+  mount_point = f"/mnt/warehouse/",
   extra_configs = configs)
 
 # COMMAND ----------

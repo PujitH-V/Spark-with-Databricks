@@ -8,7 +8,7 @@ dataframe_details = {}
 # COMMAND ----------
 
 for i,j,k,l in olist_dataset_list:
-    dataframe_details[j.replace(".","_")] = i
+    dataframe_details[j].replace(".","_")] = i
 
 
 # COMMAND ----------
@@ -19,7 +19,6 @@ dataframe_details
 
 for key,value in dataframe_details.items():
     exec(f"{key} = spark.read.csv('{value}',inferSchema=True,header=True)")
-
 
 # COMMAND ----------
 

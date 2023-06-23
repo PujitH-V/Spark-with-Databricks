@@ -1,0 +1,22 @@
+-- Databricks notebook source
+Merge into demo.Dim_Product_Price_Reference TR
+USING global_temp.demo_Product_Price_Reference_Lookup SR 
+ON TR.Ref_Product_Id = SR.F_Product_Id
+
+when matched then
+update set
+TR.Product_Price = SR.Product_Price,
+TR.Product_price_applicable_start_date = SR.Product_price_applicable_start_date,
+TR.Product_price_applicable_end_date = SR.Product_price_applicable_end_date,
+TR.Product_Price_Currency = SR.Product_Price_Currency,
+TR.Product_Max_Discount_Amount_in_Dollars = SR.Product_Max_Discount_Amount_in_Dollars,
+TR.Product_Max_Discount_Percentage = SR.Product_Max_Discount_Percentage,
+TR.src_rec_created_ts = SR.Record_Created_timestamp
+
+when not matched then
+insert (Ref_Product_Id,Product_Price,Product_price_applicable_start_date,Product_price_applicable_end_date,Product_Price_Currency,Currency_Conversion_source_country_code,Product_Max_Discount_Amount_in_Dollars,Product_Max_Discount_Percentage,src_rec_created_ts)
+values
+(
+    F_Product_Id,Product_Price,Product_price_applicable_start_date,Product_price_applicable_end_date,Product_Price_Currency,'USA',
+    Product_Max_Discount_Amount_in_Dollars,Product_Max_Discount_Percentage,Record_Created_timestamp
+)
